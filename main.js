@@ -76,7 +76,7 @@ module.exports.loop = function () {
                result = roleBuilder.run(creep);
             }
             if(!result){
-               result = roleRepairer.run(creep);
+               //result = roleRepairer.run(creep);
             }
             if(!result){
                result = roleUpgrader.run(creep);
