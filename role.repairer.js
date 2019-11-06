@@ -13,8 +13,9 @@ module.exports = {
 
 	    if(creep.memory.repairing) {
 	        var targets = creep.room.find(FIND_STRUCTURES, { //Tower repair walls & ramparts.
-                    filter: (structure) => (structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART) 
-                                            && structure.hits < structure.hitsMax
+                    filter: (structure) => (structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART && structure.hits < structure.hitsMax)
+                                            || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 200) //ramparts decay, thus need at least some repair
+                                            
             });
             if(targets.length) {
                 if(creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
