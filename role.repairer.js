@@ -12,14 +12,14 @@ module.exports = {
 	    }
 
 	    if(creep.memory.repairing) {
-	        var targets = creep.room.find(FIND_STRUCTURES, { //Tower repair walls & ramparts.
+	        var target = creep.pos.findClosestByPath(FIND_STRUCTURES, { //Tower repair walls & ramparts.
                     filter: (structure) => (structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART && structure.hits < structure.hitsMax)
-                                            || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 200) //ramparts decay, thus need at least some repair
+                                            || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 1000) //ramparts decay, thus need at least some repair
                                             
             });
-            if(targets.length) {
-                if(creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+            if(target) {
+                if(creep.repair(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
                 return true;
             } else {
