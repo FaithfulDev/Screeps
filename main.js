@@ -19,13 +19,24 @@ module.exports.loop = function () {
         if(closestHostile) {
             tower.attack(closestHostile);
         } else {
-            var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (s) => (s.structureType == STRUCTURE_WALL && s.hits / s.hitsMax <= 0.0001)
+            var damagedStructures = tower.room.find(FIND_STRUCTURES, {
+                filter: (s) => (s.structureType == STRUCTURE_WALL && s.hits / s.hitsMax <= 0.0002)
                                         || (s.structureType == STRUCTURE_RAMPART && s.hits / s.hitsMax <= 0.03)
                                         || (s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART && s.hits < s.hitsMax)
             });
-            if(closestDamagedStructure) {
-                tower.repair(closestDamagedStructure);
+            if(damagedStructures) {
+                
+                damagedStructures.sort(function (a, b) {
+                    if (a.hits < b.hits) {
+                        return -1;
+                    }
+                    if (b.hits < a.hits) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                
+                tower.repair(damagedStructures[0]);
             }
         }
     }
