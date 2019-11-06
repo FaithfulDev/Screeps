@@ -31,7 +31,7 @@ module.exports.loop = function () {
     var energy = Game.spawns.Capital.room.energyAvailable;
     var harvesters = _.filter(Game.creeps, (c) => c.memory.role == 'harvester');
     
-    if(harvesters.length < 5){
+    if(harvesters.length < 2){
         Game.spawns.Capital.spawnCustomCreep(energy, 'H'+Game.time, 'harvester');   
     }
     
