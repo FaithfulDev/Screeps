@@ -1,5 +1,6 @@
 require('prototype.spawn')();
 require('prototype.creep')();
+require('prototype.tower')();
 
 module.exports.loop = function () {
     
@@ -10,32 +11,9 @@ module.exports.loop = function () {
         }
     }
     
-    var tower = Game.getObjectById('5dc2102f76e67f70e151fc82');
-    if(tower) {
-        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(closestHostile) {
-            tower.attack(closestHostile);
-        } else {
-            var damagedStructures = tower.room.find(FIND_STRUCTURES, {
-                filter: (s) => (s.structureType == STRUCTURE_WALL && s.hits / s.hitsMax <= 0.0002)
-                                        || (s.structureType == STRUCTURE_RAMPART && s.hits / s.hitsMax <= 0.03)
-                                        || (s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART && s.hits < s.hitsMax)
-            });
-            if(damagedStructures) {
-                
-                damagedStructures.sort(function (a, b) {
-                    if (a.hits < b.hits) {
-                        return -1;
-                    }
-                    if (b.hits < a.hits) {
-                        return 1;
-                    }
-                    return 0;
-                });
-                
-                tower.repair(damagedStructures[0]);
-            }
-        }
+    //Default run logic for all towers.
+    for(let tower of _.filter(Game.structures, (s) => s.structureType == STRUCTURE_TOWER)){
+        tower.run();
     }
 
     var energy = Game.spawns.Capital.room.energyAvailable;
