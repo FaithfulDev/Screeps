@@ -13,19 +13,18 @@ module.exports.loop = function () {
         }
     }
     
-    var tower = Game.getObjectById('8050ba0e70a0d24ae6b700f7');
+    var tower = Game.getObjectById('5dc2102f76e67f70e151fc82');
     if(tower) {
-        
-        var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-            filter: (structure) => structure.hits < structure.hitsMax
-        });
-        if(closestDamagedStructure) {
-            tower.repair(closestDamagedStructure);
-        }
-        
         var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(closestHostile) {
             tower.attack(closestHostile);
+        } else {
+            var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: (structure) => structure.hits < structure.hitsMax
+            });
+            if(closestDamagedStructure) {
+                tower.repair(closestDamagedStructure);
+            }
         }
     }
 
