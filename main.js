@@ -16,31 +16,12 @@ module.exports.loop = function () {
         tower.run();
     }
 
-    var energy = Game.spawns.Capital.room.energyAvailable;
-    var harvesters = _.filter(Game.creeps, (c) => c.memory.role == 'harvester');
-    
-    if(harvesters.length < 2){
-        Game.spawns.Capital.spawnCustomCreep(energy, 'H'+Game.time, 'harvester');   
-    }
-    
-    var upgrader = _.filter(Game.creeps, (c) => c.memory.role == 'upgrader');
-    
-    if(upgrader.length < 1){
-        Game.spawns.Capital.spawnCustomCreep(energy, 'U'+Game.time, 'upgrader');  
+    //Try to spawn creep, if it's necessary.
+    for(let spawn in Game.spawns){
+        Game.spawns[spawn].tryToSpawnCreep();
     }
 
-    var builder = _.filter(Game.creeps, (c) => c.memory.role == 'builder');
-    
-    if(builder.length < 1){
-        Game.spawns.Capital.spawnCustomCreep(energy, 'B'+Game.time, 'builder');   
-    }
-    
-    var repairer = _.filter(Game.creeps, (c) => c.memory.role == 'repairer');
-    
-    if(repairer.length < 1){
-        Game.spawns.Capital.spawnCustomCreep(energy, 'R'+Game.time, 'repairer');    
-    }
-
+    //Default run logic for all creeps.
     for(var name in Game.creeps) {
         Game.creeps[name].run();
     }
