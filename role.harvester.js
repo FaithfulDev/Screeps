@@ -21,7 +21,7 @@ var roleHarvester = {
         else {
             var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) &&
+                        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
                             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                     }
             });
@@ -31,7 +31,19 @@ var roleHarvester = {
                 }
                 return true;
             } else {
-               return false;
+                //Look for Towers that need fill up
+                var towerInNeedofFIllUp = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: (s) => s.structureType == STRUCTURE_TOWER && s.needsFillUp() && s.room == creep.room
+                }) ;
+
+                if(towerInNeedofFIllUp){
+                    if(creep.transfer(towerInNeedofFIllUp, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(towerInNeedofFIllUp, {visualizePathStyle: {stroke: '#ffffff'}});
+                    }
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }
 	}
