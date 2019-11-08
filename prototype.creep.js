@@ -31,4 +31,11 @@ module.exports = function() {
         }
     };
 
+    Creep.prototype.harvestEnergy = function() {
+        var sources = this.room.find(FIND_SOURCES, {filter: (s) => s.id != '5bbcaba79099fc012e6340fc'});
+        if(this.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
+            this.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+        }
+    };
+
 };

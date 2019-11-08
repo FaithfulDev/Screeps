@@ -13,24 +13,21 @@ var roleHarvester = {
 	    }
 
 	    if(!creep.memory.isWorking) {
-            var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
-            }
+            creep.harvestEnergy();
+			return true;
         }
         else {
-            var targets = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-                    }
+            var closestTarget = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: (s) => (s.structureType == STRUCTURE_EXTENSION || s.structureType == STRUCTURE_SPAWN) &&
+                            s.store.getFreeCapacity(RESOURCE_ENERGY) > 0
             });
-            if(targets.length > 0) {
-                if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+
+            if(closestTarget) {
+                if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(closestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
                 return true;
-            } else {
+            } else if(creep.memory.role == 'harvester') {
                 //Look for Towers that need fill up
                 var towerInNeedofFIllUp = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: (s) => s.structureType == STRUCTURE_TOWER && s.needsFillUp() && s.room == creep.room
