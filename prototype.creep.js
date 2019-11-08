@@ -23,10 +23,13 @@ module.exports = function() {
             }
 
             if(!result){
-            result = roleBuilder.run(this);
+                result = roleHarvester.run(this);
             }
             if(!result){
-            result = roleUpgrader.run(this);
+                result = roleBuilder.run(this);
+            }
+            if(!result){
+                result = roleUpgrader.run(this);
             }
         }
     };
