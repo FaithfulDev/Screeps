@@ -4,10 +4,10 @@ var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
 
 module.exports = function() {
-    
+
     Creep.prototype.run = function() {
         var result = false;
-    
+
         if(!this.spawning){
             if(this.memory.role == 'harvester') {
                 result = roleHarvester.run(this);
@@ -21,7 +21,7 @@ module.exports = function() {
             if(this.memory.role == 'repairer'){
                 result = roleRepairer.run(this);
             }
-            
+
             if(!result){
             result = roleBuilder.run(this);
             }
@@ -30,5 +30,5 @@ module.exports = function() {
             }
         }
     };
-        
+
 };

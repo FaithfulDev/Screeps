@@ -3,14 +3,14 @@ require('prototype.creep')();
 require('prototype.tower')();
 
 module.exports.loop = function () {
-    
+
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
             console.log('Clearing non-existing creep memory:', name);
         }
     }
-    
+
     //Default run logic for all towers.
     for(let tower of _.filter(Game.structures, (s) => s.structureType == STRUCTURE_TOWER)){
         tower.run();

@@ -1,8 +1,8 @@
 var roleHarvester = {
-    
+
     /** @param {Creep} creep **/
     run: function(creep) {
-        
+
         if(creep.memory.isWorking && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.isWorking = false;
             creep.say('🔄 harvest');
@@ -11,7 +11,7 @@ var roleHarvester = {
 	        creep.memory.isWorking = true;
 	        creep.say('⚡ transfer');
 	    }
-        
+
 	    if(!creep.memory.isWorking) {
             var sources = creep.room.find(FIND_SOURCES);
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {

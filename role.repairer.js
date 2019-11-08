@@ -15,7 +15,7 @@ module.exports = {
 	        var target = creep.pos.findClosestByPath(FIND_STRUCTURES, { //Tower repair walls & ramparts.
                     filter: (structure) => (structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART && structure.hits < structure.hitsMax)
                                             || (structure.structureType == STRUCTURE_RAMPART && structure.hits < 1000) //ramparts decay, thus need at least some repair
-                                            
+
             });
             if(target) {
                 if(creep.repair(target) == ERR_NOT_IN_RANGE) {

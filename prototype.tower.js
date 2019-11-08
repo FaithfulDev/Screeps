@@ -1,5 +1,5 @@
 module.exports = function() {
-    
+
     StructureTower.prototype.run = function() {
 
         var closestHostile = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
@@ -12,7 +12,7 @@ module.exports = function() {
                                         || (s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART && s.hits < s.hitsMax)
             });
             if(damagedStructures) {
-                
+
                 damagedStructures.sort(function (a, b) {
                     if (a.hits < b.hits) {
                         return -1;
@@ -22,10 +22,10 @@ module.exports = function() {
                     }
                     return 0;
                 });
-                
+
                 this.repair(damagedStructures[0]);
             }
-        }        
+        }
 
         if(this.energy <= 800){
             if(Memory.towers == undefined){
@@ -40,7 +40,7 @@ module.exports = function() {
         }
 
     };
-        
+
     StructureTower.prototype.needsFillUp = function(){
 
         if(Memory.towers == undefined){
