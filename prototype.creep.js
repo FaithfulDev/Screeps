@@ -3,6 +3,8 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
 var roleDefender = require('role.defender');
+var roleMiner = require('role.miner');
+var roleLorry = require('role.lorry');
 
 module.exports = function() {
 
@@ -12,20 +14,23 @@ module.exports = function() {
         if(!this.spawning){
             if(this.memory.role == 'harvester') {
                 result = roleHarvester.run(this);
-            }
-            if(this.memory.role == 'upgrader') {
+            }else if(this.memory.role == 'upgrader') {
                 result = roleUpgrader.run(this);
-            }
-            if(this.memory.role == 'builder') {
+            }else if(this.memory.role == 'builder') {
                 result = roleBuilder.run(this);
-            }
-            if(this.memory.role == 'repairer'){
+            }else if(this.memory.role == 'repairer'){
                 result = roleRepairer.run(this);
-            }
-            if(this.memory.role == 'defender'){
+            }else if(this.memory.role == 'defender'){
                 result = roleDefender.run(this);
+            }else if(this.memory.role == 'defender'){
+                result = roleDefender.run(this);
+            }else if(this.memory.role == 'miner'){
+                result = roleMiner.run(this);
+            }else if(this.memory.role == 'lorry'){
+                result = roleLorry.run(this);
             }
 
+            //Fallback roles
             if(!result){
                 result = roleHarvester.run(this);
             }
