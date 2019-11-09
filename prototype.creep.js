@@ -2,6 +2,7 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
+var roleDefender = require('role.defender');
 
 module.exports = function() {
 
@@ -20,6 +21,9 @@ module.exports = function() {
             }
             if(this.memory.role == 'repairer'){
                 result = roleRepairer.run(this);
+            }
+            if(this.memory.role == 'defender'){
+                result = roleDefender.run(this);
             }
 
             if(!result){
