@@ -6,7 +6,7 @@ module.exports = function() {
 
         let harvesters = _.filter(creepsInRoom, (c) => c.memory.role == 'harvester');
         if(harvesters.length < 2){
-            this.spawnCustomCreep(energy, 'H'+Game.time, 'harvester');
+            this.spawnCustomCreep((energy <= 400)?energy:400, 'H'+Game.time, 'harvester');
         }
 
         let upgrader = _.filter(creepsInRoom, (c) => c.memory.role == 'upgrader');
