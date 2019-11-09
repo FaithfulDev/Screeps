@@ -2,7 +2,7 @@ module.exports = function() {
 
     StructureTower.prototype.run = function() {
 
-        var closestHostile = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        var closestHostile = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {filter: (c) => c.owner.username != 'test'});
         if(closestHostile) {
             this.attack(closestHostile);
         } else {
