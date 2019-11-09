@@ -31,11 +31,21 @@ module.exports = function() {
             if(Memory.towers == undefined){
                 Memory.towers = {};
             }
+
+            if(Memory.towers[this.id] == undefined){
+                Memory.towers[this.id] = {};
+            }
+
             Memory.towers[this.id].needsFillUp = true;
         }else if(this.energy == 1000){
             if(Memory.towers == undefined){
                 Memory.towers = {};
             }
+
+            if(Memory.towers[this.id] == undefined){
+                Memory.towers[this.id] = {};
+            }
+
             Memory.towers[this.id].needsFillUp = false;
         }
 
