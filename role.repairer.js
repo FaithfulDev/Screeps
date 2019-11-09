@@ -27,7 +27,7 @@ module.exports = {
 			}
 	    }
 	    else {
-	        creep.harvestEnergy();
+	        creep.getEnergy();
 			return true;
 	    }
 	}

@@ -50,4 +50,28 @@ module.exports = function() {
         }
     };
 
+    Creep.prototype.getEnergy = function() {
+        let storages = this.room.find(FIND_STRUCTURES,
+            {filter: (s) => s.structureType == STRUCTURE_STORAGE && s.store.getUsedCapacity(RESOURCE_ENERGY) != 0})
+        if(storages.length > 0){
+            if(this.withdraw(storages[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                this.moveTo(storages[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+            }
+            return;
+        }
+
+        let container = this.pos.findClosestByPath(FIND_STRUCTURES,
+            {filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.store.getUsedCapacity(RESOURCE_ENERGY) != 0
+             && s.isOpen()})
+        if(container){
+            if(this.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                this.moveTo(container, {visualizePathStyle: {stroke: '#ffaa00'}});
+            }
+            return;
+        }
+
+        //If no storage or container with energy is available, the creep will harvest it itself.
+        this.harvestEnergy();
+    };
+
 };

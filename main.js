@@ -1,6 +1,7 @@
 require('prototype.spawn')();
 require('prototype.creep')();
 require('prototype.tower')();
+require('prototype.container')();
 
 module.exports.loop = function () {
 
@@ -31,15 +32,25 @@ module.exports.loop = function () {
         let containers = Game.spawns[spawn].room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_CONTAINER});
 
         //Register new container
-        for(let container in containers){
+        for(let containerName in containers){
+
+            let container = containers[containerName];
 
             if(Memory.containers == undefined){
                 Memory.containers = {};
             }
 
-            if(Memory.containers[containers[container].id] == undefined){
-                Memory.containers[containers[container].id] = {hasMiner: false, hasLorry: false};
+            if(Memory.containers[container.id] == undefined){
+                Memory.containers[container.id] = {hasMiner: false, hasLorry: false};
             }
+
+            //Check if they need to be closed.
+            if(container.store[RESOURCE_ENERGY] <= 100){
+                container.setClosed();
+            }else if(container.store[RESOURCE_ENERGY] >= 300){
+                container.setOpened();
+            }
+
         }
 
         Game.spawns[spawn].tryToSpawnCreep();

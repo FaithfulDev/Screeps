@@ -9,7 +9,7 @@ module.exports = {
 	    }
 	    if(!creep.memory.isTransporting && creep.store.getFreeCapacity() == 0) {
 	        creep.memory.isTransporting = true;
-	        creep.say('⚡ Transporting');
+	        creep.say('⚡ Move');
 	    }
 
         if(creep.memory.isTransporting) {
@@ -36,12 +36,20 @@ module.exports = {
             }
         }
         else {
+
+            let droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+            if(droppedEnergy){
+               if(creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE){
+                   creep.moveTo(droppedEnergy, {visualizePathStyle: {stroke: '#ffffff'}});
+               }
+            }
+
             /** @type {StructureContainer} */
             let container = Game.getObjectById(creep.memory.container);
-
             if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
                 creep.moveTo(container);
             }
+
         }
         return true;
     }

@@ -10,13 +10,10 @@ module.exports = {
             let source = container.pos.findInRange(FIND_SOURCES, 1)[0];
             if(source){
                 creep.harvest(source);
-            }else{
-                console.log('dsad');
             }
             return true;
         }
         else {
-            console.log('aaaa');
             creep.moveTo(container);
             return true;
         }

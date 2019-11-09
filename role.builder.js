@@ -27,7 +27,7 @@ var roleBuilder = {
 			}
 	    }
 	    else {
-			creep.harvestEnergy();
+			creep.getEnergy();
 			return true;
 	    }
 	}

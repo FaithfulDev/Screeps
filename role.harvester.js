@@ -13,7 +13,7 @@ var roleHarvester = {
 	    }
 
 	    if(!creep.memory.isWorking) {
-            creep.harvestEnergy();
+            creep.getEnergy();
 			return true;
         }
         else {

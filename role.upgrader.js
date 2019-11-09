@@ -18,7 +18,7 @@ var roleUpgrader = {
             }
         }
         else {
-            creep.harvestEnergy();
+            creep.getEnergy();
         }
         return true;
 	}
