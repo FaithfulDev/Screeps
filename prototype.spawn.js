@@ -99,7 +99,7 @@ module.exports = function() {
     };
 
     StructureSpawn.prototype.spawnDefender = function() {
-        return this.spawnCreep([TOUGH, ATTACK, ATTACK, MOVE, MOVE], 'defender_' + Game.time, {memory: {role: 'defender'}});
+        return this.spawnCreep([TOUGH, MOVE, MOVE, ATTACK, ATTACK], 'defender_' + Game.time, {memory: {role: 'defender'}});
     };
 
 };
