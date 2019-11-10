@@ -6,22 +6,22 @@ module.exports = function() {
 
         let harvesters = _.filter(creepsInRoom, (c) => c.memory.role == 'harvester');
         if(harvesters.length < 2){
-            this.spawnCustomCreep((energy <= 400)?energy:400, 'H'+Game.time, 'harvester');
+            this.spawnCustomCreep((energy <= 400)?energy:400, 'harvester');
         }
 
         let upgrader = _.filter(creepsInRoom, (c) => c.memory.role == 'upgrader');
         if(upgrader.length < 1){
-            this.spawnCustomCreep(energy, 'U'+Game.time, 'upgrader');
+            this.spawnCustomCreep(energy, 'upgrader');
         }
 
         let builder = _.filter(creepsInRoom, (c) => c.memory.role == 'builder');
         if(builder.length < 1){
-            this.spawnCustomCreep(energy, 'B'+Game.time, 'builder');
+            this.spawnCustomCreep(energy, 'builder');
         }
 
         let repairer = _.filter(creepsInRoom, (c) => c.memory.role == 'repairer');
         if(repairer.length < 1){
-            this.spawnCustomCreep(energy, 'R'+Game.time, 'repairer');
+            this.spawnCustomCreep(energy, 'repairer');
         }
 
         let containers = this.room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_CONTAINER});
@@ -56,7 +56,7 @@ module.exports = function() {
     }
 
     StructureSpawn.prototype.spawnCustomCreep =
-        function(enegery, creepName, roleName) {
+        function(enegery, roleName) {
             var numberOfParts = Math.floor(enegery / 200);
             var body = [];
 
@@ -70,7 +70,7 @@ module.exports = function() {
                 body.push(MOVE);
             }
 
-            return this.spawnCreep(body, creepName, {memory: {role: roleName}});
+            return this.spawnCreep(body, roleName + '_' + Game.time, {memory: {role: roleName}});
         };
 
     /** @param {StructureContainer} container */
