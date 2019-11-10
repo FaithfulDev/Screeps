@@ -58,6 +58,8 @@ module.exports = function() {
     StructureSpawn.prototype.spawnCustomCreep =
         function(enegery, roleName) {
             var numberOfParts = Math.floor(enegery / 200);
+            // make sure the creep is not too big (more than 50 parts)
+            numberOfParts = Math.min(numberOfParts, Math.floor(50 / 3));
             var body = [];
 
             for(let i = 0; i < numberOfParts; i++){
