@@ -26,7 +26,7 @@ module.exports = function() {
 
         let containers = this.room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_CONTAINER});
 
-        //Register new container
+        //Check if any containers need miners or lorries.
         for(let container in containers){
             if(Memory.containers[containers[container].id].hasMiner == false){
                 let result = this.spawnMiner(containers[container]);
@@ -44,6 +44,15 @@ module.exports = function() {
                 break;
             }
         }
+
+        if(this.memory.creepsLimit != undefined){
+            let defender = _.filter(creepsInRoom, (c) => c.memory.role == 'defender');
+            let defenderLimit = this.memory.creepsLimit.defender;
+            if(defenderLimit && defender < defenderLimit){
+                this.spawnDefender();
+            }
+        }
+
     }
 
     StructureSpawn.prototype.spawnCustomCreep =
@@ -85,6 +94,10 @@ module.exports = function() {
         }
 
         return this.spawnCreep(body, 'lorry_' + Game.time, {memory: {role: 'lorry', container: container.id}});
+    };
+
+    StructureSpawn.prototype.spawnDefender = function() {
+        return this.spawnCreep([TOUGH, ATTACK, ATTACK, MOVE, MOVE], 'defender_' + Game.time, {memory: {role: 'defender'}});
     };
 
 };
