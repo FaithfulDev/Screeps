@@ -23,14 +23,25 @@ module.exports = {
                     creep.moveTo(closestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else {
-                //Look for Towers that need fill up
-                var towerInNeedofFIllUp = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: (s) => s.structureType == STRUCTURE_TOWER && s.needsFillUp() && s.room == creep.room
-                }) ;
+                var closestTarget = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: (s) => (s.structureType == STRUCTURE_STORAGE) &&
+                            s.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+                });
 
-                if(towerInNeedofFIllUp){
-                    if(creep.transfer(towerInNeedofFIllUp, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(towerInNeedofFIllUp, {visualizePathStyle: {stroke: '#ffffff'}});
+                if(closestTarget){
+                    if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(closestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
+                    }
+                }else{
+                    //Look for Towers that need fill up
+                    var towerInNeedofFIllUp = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                        filter: (s) => s.structureType == STRUCTURE_TOWER && s.needsFillUp() && s.room == creep.room
+                    }) ;
+
+                    if(towerInNeedofFIllUp){
+                        if(creep.transfer(towerInNeedofFIllUp, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(towerInNeedofFIllUp, {visualizePathStyle: {stroke: '#ffffff'}});
+                        }
                     }
                 }
             }
@@ -42,6 +53,7 @@ module.exports = {
                if(creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE){
                    creep.moveTo(droppedEnergy, {visualizePathStyle: {stroke: '#ffffff'}});
                }
+               return true;
             }
 
             /** @type {StructureContainer} */
