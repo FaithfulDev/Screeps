@@ -48,7 +48,7 @@ module.exports = {
         }
         else {
 
-            let droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {filter: (e) => e.amount >= 200});
+            let droppedEnergy = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
             if(droppedEnergy){
                if(creep.pickup(droppedEnergy) == ERR_NOT_IN_RANGE){
                    creep.moveTo(droppedEnergy, {visualizePathStyle: {stroke: '#ffffff'}});

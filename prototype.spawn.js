@@ -2,6 +2,7 @@ module.exports = function() {
 
     StructureSpawn.prototype.tryToSpawnCreep = function() {
         let energy = this.room.energyAvailable;
+        energy = (energy <= 1200)?energy:1200;
         let creepsInRoom = this.room.find(FIND_MY_CREEPS);
 
         let harvesters = _.filter(creepsInRoom, (c) => c.memory.role == 'harvester');
@@ -56,8 +57,8 @@ module.exports = function() {
     }
 
     StructureSpawn.prototype.spawnCustomCreep =
-        function(enegery, roleName) {
-            var numberOfParts = Math.floor(enegery / 200);
+        function(energy, roleName) {
+            var numberOfParts = Math.floor(energy / 200);
             // make sure the creep is not too big (more than 50 parts)
             numberOfParts = Math.min(numberOfParts, Math.floor(50 / 3));
             var body = [];
