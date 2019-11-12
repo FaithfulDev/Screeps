@@ -2,7 +2,9 @@ module.exports = function() {
 
     StructureTower.prototype.run = function() {
 
-        var closestHostile = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {filter: (c) => c.owner.username != 'test'});
+        var closestHostile = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS,
+            {filter: (c) => Memory.rooms[this.room.name].tripwireTriggered == true
+                            || c.owner.username != 'jueyanyingyu'});
         if(closestHostile) {
             this.attack(closestHostile);
         } else {

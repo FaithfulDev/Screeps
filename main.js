@@ -56,7 +56,9 @@ module.exports.loop = function () {
         Game.spawns[spawn].tryToSpawnCreep();
 
         //If hostiles are in my room, capable of attack, activate the safe mode (or at least try).
-        let hostiles = Game.spawns[spawn].room.find(FIND_HOSTILE_CREEPS);
+        let hostiles = Game.spawns[spawn].room.find(FIND_HOSTILE_CREEPS,
+            {filter: (c) => Memory.rooms[Game.spawns[spawn].room.name].tripwireTriggered == true
+                            || c.owner.username != 'jueyanyingyu'});
         for(creep in hostiles){
             if(hostiles[creep].body.some(function(bodyPart) {
                 if(bodyPart.type == ATTACK || bodyPart.type == RANGED_ATTACK){
