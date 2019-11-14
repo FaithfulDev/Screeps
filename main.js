@@ -78,23 +78,4 @@ module.exports.loop = function () {
         Game.creeps[name].run();
     }
 
-    for(let r in Memory.rooms){
-        room = Memory.rooms[r];
-
-        if(!room.energy){
-            room.energy = [];
-        }
-
-        let lastCheck;
-
-        if(room.energy.length > 0){
-            lastCheck = room.energy[room.energy.length - 1].time;
-        }else{
-            lastCheck = 0;
-        }
-
-        if(lastCheck + 200 <= Game.time){
-            room.energy.push({time: Game.time, energy: Game.rooms[r].storage.store[RESOURCE_ENERGY]});
-        }
-    }
 }
