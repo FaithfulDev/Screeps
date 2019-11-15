@@ -9,8 +9,8 @@ module.exports = function() {
             this.attack(closestHostile);
         } else {
             var damagedStructures = this.room.find(FIND_STRUCTURES, {
-                filter: (s) => (s.structureType == STRUCTURE_WALL && s.hits / s.hitsMax <= 0.0008)
-                                        || (s.structureType == STRUCTURE_RAMPART && s.hits / s.hitsMax <= 0.02)
+                filter: (s) => (s.structureType == STRUCTURE_WALL && s.hits <= 260000)
+                                        || (s.structureType == STRUCTURE_RAMPART && s.hits <= 240000)
                                         || (s.structureType != STRUCTURE_WALL && s.structureType != STRUCTURE_RAMPART && s.hits < s.hitsMax)
             });
             if(damagedStructures) {
