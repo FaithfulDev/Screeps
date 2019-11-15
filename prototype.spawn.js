@@ -25,6 +25,12 @@ module.exports = function() {
             this.spawnCustomCreep(energy, 'repairer');
         }
 
+        let mineralHarvester = _.filter(creepsInRoom, (c) => c.memory.role == 'mineralHarvester');
+        let extractors = this.room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_EXTRACTOR});
+        if(mineralHarvester.length < extractors){
+            this.spawnCustomCreep(energy, 'mineralHarvester');
+        }
+
         let containers = this.room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_CONTAINER});
 
         //Check if any containers need miners or lorries.

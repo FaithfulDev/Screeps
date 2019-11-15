@@ -5,6 +5,7 @@ var roleRepairer = require('role.repairer');
 var roleDefender = require('role.defender');
 var roleMiner = require('role.miner');
 var roleLorry = require('role.lorry');
+var roleMineralHarvester = require('role.mineralHarvester');
 
 module.exports = function() {
 
@@ -28,6 +29,8 @@ module.exports = function() {
                 result = roleMiner.run(this);
             }else if(this.memory.role == 'lorry'){
                 result = roleLorry.run(this);
+            }else if(this.memory.role == 'mineralHarvester'){
+                result = roleMineralHarvester.run(this);
             }
 
             //Fallback roles
