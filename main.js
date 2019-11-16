@@ -67,7 +67,9 @@ module.exports.loop = function () {
               }) == true)
             {
                 console.log('ATTENTION');
-                Game.spawns[spawn].room.controller.activateSafeMode();
+                if(Game.spawns[spawn].room.controller.activateSafeMode() == OK){
+                    Game.notify('Safe Mode activated in response to hostile creeps');   
+                }
                 break;
             }
         }
