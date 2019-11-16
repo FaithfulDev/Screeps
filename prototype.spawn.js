@@ -27,7 +27,7 @@ module.exports = function() {
 
         let mineralHarvester = _.filter(creepsInRoom, (c) => c.memory.role == 'mineralHarvester');
         let extractors = this.room.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_EXTRACTOR});
-        if(mineralHarvester.length < extractors){
+        if(mineralHarvester.length < extractors.length){
             this.spawnCustomCreep(energy, 'mineralHarvester');
         }
 

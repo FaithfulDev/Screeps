@@ -15,7 +15,7 @@ module.exports = {
 
 	    if(creep.memory.isHarvesting) {
 
-            var minerals = creep.room.find(FIND_MINERALS, (m) => m.mineralAmount > 0);
+            var minerals = creep.room.find(FIND_MINERALS, {filter: (m) => m.mineralAmount > 0});
 
             if(minerals.length > 0){
                 if(creep.harvest(minerals[0]) == ERR_NOT_IN_RANGE) {
