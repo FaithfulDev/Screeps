@@ -13,9 +13,14 @@ var roleBuilder = {
 	    }
 
 	    if(creep.memory.building) {
-	        //var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+			//Some sites have priority
+	        var targets = creep.room.find(FIND_CONSTRUCTION_SITES, {filter: (s) => s.id == '63c46e3f555158424dcf10f9'});
 
-			var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+			if(targets){
+				var target = targets[0];
+			}else{
+				var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+			}
 
             if(target) {
                 if(creep.build(target) == ERR_NOT_IN_RANGE) {
