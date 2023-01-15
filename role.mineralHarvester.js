@@ -8,7 +8,7 @@ module.exports = {
             creep.say('⚡ transfer');
 
 	    }
-	    if(!creep.memory.isHarvesting && creep.store.getUsedCapacity() == 0) {
+	    if(!creep.memory.isHarvesting && creep.store[RESOURCE_ZYNTHIUM] == 0) {
 	        creep.memory.isHarvesting = true;
 	        creep.say('🔄 harvest');
 	    }
@@ -32,6 +32,9 @@ module.exports = {
             });
 
             if(closestTarget){
+                if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(closestTarget, {visualizePathStyle: {stroke: '#ffaa00'}});
+                }
                 if(creep.transfer(closestTarget, RESOURCE_ZYNTHIUM) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closestTarget, {visualizePathStyle: {stroke: '#ffaa00'}});
                 }

@@ -32,6 +32,9 @@ module.exports = {
                     if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(closestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
+                    if(creep.transfer(closestTarget, RESOURCE_ZYNTHIUM) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(closestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
+                    }
                 }else{
                     //Look for Towers that need fill up
                     var towerInNeedofFIllUp = creep.pos.findClosestByPath(FIND_STRUCTURES, {

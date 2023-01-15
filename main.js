@@ -59,6 +59,7 @@ module.exports.loop = function () {
         let hostiles = Game.spawns[spawn].room.find(FIND_HOSTILE_CREEPS,
             {filter: (c) => Memory.rooms[Game.spawns[spawn].room.name].tripwireTriggered == true
                             || c.owner.username != 'jueyanyingyu'});
+        
         for(creep in hostiles){
             if(hostiles[creep].body.some(function(bodyPart) {
                 if(bodyPart.type == ATTACK || bodyPart.type == RANGED_ATTACK){
@@ -68,7 +69,7 @@ module.exports.loop = function () {
             {
                 console.log('ATTENTION');
                 if(Game.spawns[spawn].room.controller.activateSafeMode() == OK){
-                    Game.notify('Safe Mode activated in response to hostile creeps');   
+                    Game.notify('Safe Mode activated in response to hostile creeps from' + hostiles[creep].owner);
                 }
                 break;
             }
